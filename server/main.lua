@@ -212,7 +212,8 @@ lib.callback.register('qbx_garages:server:parkVehicle', function(source, netId, 
     exports.qbx_vehicles:SaveVehicle(vehicle, {
         garage = garage,
         state = VehicleState.GARAGED,
-        props = props
+        props = props,
+		depotPrice = 0
     })
 
     exports.qbx_core:DeleteVehicle(vehicle)

@@ -1,6 +1,6 @@
 ---@async
 local function moveOutVehiclesIntoGarages()
-    MySQL.update('UPDATE player_vehicles SET state = ? WHERE state = ?', {VehicleState.GARAGED, VehicleState.OUT})
+    MySQL.update('UPDATE player_vehicles SET state = ?, depotPrice = 0 WHERE state = ?', {VehicleState.GARAGED, VehicleState.OUT})
 end
 
 ---@param vehicleId integer
@@ -19,7 +19,8 @@ end
 ---@param depotPrice integer
 ---@return integer numRowsAffected
 local function setVehicleDepotPrice(vehicleId, depotPrice)
-    return MySQL.update('UPDATE player_vehicles SET depotPrice = ? WHERE id = ? AND state != ?', {
+    return MySQL.update('UPDATE player_vehicles SET state = ?, depotPrice = ? WHERE id = ? AND state != ?', {
+        VehicleState.OUT,
         depotPrice,
         vehicleId,
         VehicleState.GARAGED
